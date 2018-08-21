@@ -12,11 +12,11 @@ var doubleWord = ['a','b','c',
 				  'y','z'];
 //Word Bank
 var wordBank =['aviators','thrift','kale', 'vintage', 'ironic'];
-//Holds choosenWord
+//Holds currentWord
 var currentWord = "";
 //Holds letters in word
 var lettersInWord = [];
-//Holds number of blanks in word
+//Holds number of dashes for word
 var numDashes = 0;
 //Holds Blanks and successful guesses
 var blanksAndSuccesses =[];
@@ -31,11 +31,11 @@ var rightGuessCounter = 0;
 //----------------------------------------
 function reset()
 {
-	//Chooses word randombly from the wordBank
+	//Chooses random word from wordBank
 	currentWord = wordBank[Math.floor(Math.random() * wordBank.length)];
-	//Splits the choosen word into individual letters
+	//Splits chosen word into individual letters
 	lettersInWord = currentWord.split('');
-	//Get the number of blanks
+	//Get the number of dashes for current word
 	numDashes = lettersInWord.length;
 	
 	//RESET
@@ -59,14 +59,14 @@ function reset()
 }
 function startGame()
 {
-	//Chooses word randombly from the wordBank
+	//Chooses random word from the wordBank
 	currentWord = wordBank[Math.floor(Math.random() * wordBank.length)];
-	//Splits the choosen word into individual letters
+	//Splits chosen word into individual letters
 	lettersInWord = currentWord.split('');
-	//Get the number of blanks
+	//Get the number of dashes
 	numDashes = lettersInWord.length;
 	
-	//RESET
+	//RESET GAME
 	//===========================================================
 	rightGuessCounter = 0;
 	guessesLeft = 9;
@@ -82,7 +82,7 @@ function startGame()
 					  'v','w','x',
 					  'y','z'];
 
-	//Populate blanks
+	//Generate dashes
 	for(var i = 0; i< numDashes; i++)
 	{
 		blanksAndSuccesses.push('_');
@@ -95,7 +95,7 @@ function startGame()
 	document.getElementById('winCounter').innerHTML = winCount;
 	document.getElementById('lossCounter').innerHTML = loseCount;
 	document.getElementById('wrongGuesses').innerHTML = wrongLetters;
-	// Testing / Debugging
+	// Testing
 	console.log(currentWord);
 	console.log(lettersInWord);
 	console.log(numDashes);
@@ -105,13 +105,13 @@ function startGame()
 function compareLetters(userKey)
 {
 				console.log('WORKING!');
-				//If user key exist in choosen word then perform this function 
+				//If user guesses correct letter perform this function 
 				if(currentWord.indexOf(userKey) > -1)
 				{
-					//Loops depending on the amount of blanks 
+					//Loops depending on number of dashes 
 					for(var i = 0; i < numDashes; i++)
 					{
-						//Fills in right index with user key
+						//Fills in right index with user guess
 						if(lettersInWord[i] === userKey)
 						{
 							rightGuessCounter++;
@@ -119,44 +119,33 @@ function compareLetters(userKey)
 							document.getElementById('wordToGuess').innerHTML = blanksAndSuccesses.join(' ');
 						}	
 					}
-					//Test / Debug
+					//Testing
 					console.log(blanksAndSuccesses);
 				}
-				//Wrong Keys
-				else
-				{
-					wrongLetters.push(userKey);
-					guessesLeft--;
-                    //Changes HTML
-
-                    var lower = wrongLetters.toLowerCase();
-
-                    document.getElementById('numGuesses').innerHTML = guessesLeft;
-
-
-                    function toUpperCase ()
-                    {
-                        getElementById('wrongGuesses').toUpperCase
-                    };
-                    
-                    
-                    document.innerHTML = toUpperCase;
-					//Test / Debug
-					console.log('Wrong Letters = ' + wrongLetters);
-					console.log('Guesses left are ' + guessesLeft);
-				}
+			//Wrong Keys
+            else
+            {
+                wrongLetters.push(userKey);
+                guessesLeft--;
+                //Changes HTML on page
+                document.getElementById('numGuesses').innerHTML = guessesLeft;
+                document.getElementById('wrongGuesses').innerHTML = wrongLetters;
+                //Testing
+                console.log('Wrong Letters = ' + wrongLetters);
+                console.log('Guesses left are ' + guessesLeft);
+            }
 			
 			
 		
 }
 function winLose()
 {
-	// When number blanks if filled with right words then you win
+	// When number dashes if filled with right words then you win
 	if(rightGuessCounter === numDashes)
 	{
 		//Counts Wins 
 		winCount++;
-		//Changes HTML
+		//Changes HTML on page
 		document.getElementById('winCounter').innerHTML = winCount;
 		alert('I Guess You Won');
 		reset();
@@ -175,7 +164,7 @@ function winLose()
 
 //MAIN PROCCESS
 //-------------------------------------------	
-//Initiates the Code
+//Start code
 startGame();
 
 document.onkeyup = function(event)
@@ -187,7 +176,7 @@ document.onkeyup = function(event)
 		if(letterGuessed === doubleWord[i] && test === true)
 		{
 			var spliceDword = doubleWord.splice(i,1);
-			//Test / Debug
+			//Testing
 			console.log('Double word is = ' + doubleWord[i])
 			console.log('Spliced Word is = ' + spliceDword);
 
