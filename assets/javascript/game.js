@@ -129,7 +129,7 @@ function compareLetters(userKey)
                 guessesLeft--;
                 //Changes HTML on page
                 document.getElementById('numGuesses').innerHTML = guessesLeft;
-                document.getElementById('wrongGuesses').innerHTML = wrongLetters;
+                document.getElementById('wrongGuesses').innerHTML = wrongLetters.toString().toUpperCase();
                 //Testing
                 console.log('Wrong Letters = ' + wrongLetters);
                 console.log('Guesses left are ' + guessesLeft);
@@ -147,8 +147,9 @@ function winLose()
 		winCount++;
 		//Changes HTML on page
 		document.getElementById('winCounter').innerHTML = winCount;
-		alert('I Guess You Won');
-		reset();
+		var snd = new Audio('service-bell.mp3');    
+snd .onended = function () { alert("I Guess You Won"); };
+snd .play();
 	}
 	// When number of Guesses reaches 0 then You lose
 	else if(guessesLeft === 0)
@@ -165,8 +166,11 @@ function winLose()
 //MAIN PROCCESS
 //-------------------------------------------	
 //Start code
+
+
 startGame();
 
+	
 document.onkeyup = function(event)
 {
 	test = true;
@@ -185,4 +189,7 @@ document.onkeyup = function(event)
 		}
     }	
 }
+
+
+
 		
