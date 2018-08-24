@@ -16,7 +16,10 @@
 }
 
 
-
+body {
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
 
 #wrongGuesses {
     color: red;
