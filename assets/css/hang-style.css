@@ -10,11 +10,15 @@
     text-align: center;
 }
 
-.cardheader {
-    float: left;
-}
-
 .card {
     
     float: left;
 }
+
+
+
+
+#wrongGuesses {
+    color: red;
+} 
+
